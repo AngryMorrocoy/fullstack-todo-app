@@ -12,9 +12,10 @@
   x-data="{todos: []}"
   x-init="todos = await getTodos()">
   <template x-for="todo in todos">
-    <li :id="todo.id">
-      <input type="checkbox" :checked="todo.completed">
+    <li :id="`todo-${todo.id}`">
+      <input type="checkbox" :checked="todo.completed" class="edit-todo">
       <span x-text="todo.title"></span>
+      <button class="delete-todo">Delete</button>
     </li>
   </template>
 </ul>
