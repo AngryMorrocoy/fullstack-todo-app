@@ -6,4 +6,6 @@ from .views import TodoView
 router = routers.DefaultRouter()
 router.register("todos", TodoView, basename="todos")
 
-urlpatterns = [path("", include(router.urls))]
+urlpatterns = [
+    path("", include(router.urls)),
+]

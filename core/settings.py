@@ -20,7 +20,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-d+nqfh1=$v_tbscxx)e6qbi9c68d)__sq^rjl1^!o7qipeu=u6"
+SECRET_KEY = (
+    "django-insecure-d+nqfh1=$v_tbscxx)e6qbi9c68d)__sq^rjl1^!o7qipeu=u6"
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,9 +39,26 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sites",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "dj_rest_auth.registration",
     "rest_framework",
+    "rest_framework.authtoken",
+    "dj_rest_auth",
     "todos",
 ]
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+        "dj_rest_auth.jwt_auth.JWTCookieAuthentication",
+    )
+}
+
+REST_USE_JWT = True
+JWT_AUTH_COOKIE = "jwt-auth"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
