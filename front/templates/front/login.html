@@ -1,0 +1,22 @@
+{% extends "front/base.html" %}
+{% load static %}
+{% block title %}
+Login
+{% endblock %}
+{% block extra_head %}
+<link rel="stylesheet" href={% static "css/register.css" %} media="all">
+{% endblock %}
+
+{% block content %}
+<form
+    @submit.prevent="authFunc('login', username, password)"
+    x-data="{
+    username: '',
+    password: ''
+    }"
+  >
+  <input x-model="username" type="text" name="username" placeholder="Username...">
+  <input x-model="password" type="password" name="password" placeholder="Password...">
+  <input type="submit" value="Login">
+</form>
+{% endblock %}

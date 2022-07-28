@@ -1,0 +1,24 @@
+{% extends "front/base.html" %}
+{% load static %}
+{% block title %} Todo app {% endblock %}
+{% block extra_head %}
+<script src={% static "js/index.js" %}></script>
+{% endblock %}
+
+{% block content %}
+
+<ul
+  @click="handleTodoListClick($event.target)"
+  x-data="{todos: []}"
+  x-init="todos = await getTodos()">
+  <template x-for="todo in todos">
+    <li :id="todo.id">
+      <input type="checkbox" :checked="todo.completed">
+      <span x-text="todo.title"></span>
+    </li>
+  </template>
+</ul>
+
+<button x-data="" @click="authFunc('logout')">Logout</button>
+
+{% endblock %}
