@@ -4,19 +4,49 @@
 Login
 {% endblock %}
 {% block extra_head %}
-<link rel="stylesheet" href={% static "css/register.css" %} media="all">
+<style>
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-content: center;
+  }
+</style>
 {% endblock %}
 
 {% block content %}
 <form
+    class="auth-form"
     @submit.prevent="authFunc('login', username, password)"
     x-data="{
-    username: '',
-    password: ''
+      username: '',
+      password: ''
     }"
   >
-  <input x-model="username" type="text" name="username" placeholder="Username...">
-  <input x-model="password" type="password" name="password" placeholder="Password...">
-  <input type="submit" value="Login">
+  <h2 class="form-subtitle">Login</h2>
+  <div class="form-row">
+    <label for="username">Username</label>
+    <input id="username"
+      x-model="username"
+      type="text"
+      name="username"
+      placeholder="Username..."
+      required
+    >
+  </div>
+  <div class="form-row">
+    <label for="password">Password</label>
+    <input
+        id="password"
+        x-model="password"
+        type="password"
+        name="password"
+        placeholder="Password..."
+        required
+      >
+  </div>
+  <input
+    class="btn login-btn"
+    type="submit"
+    value="Login">
 </form>
 {% endblock %}

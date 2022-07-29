@@ -274,3 +274,61 @@ ol {
 .radio-container.selected {
   color: var(--bright-blue);
 }
+
+/* Login stuff */
+
+.auth-form {
+  font-size: 1.25rem;
+  display: grid;
+  gap: 1rem;
+  min-width: 20rem;
+  background-color: var(--todo-bg);
+  padding: 0 2rem 5rem 2rem;
+  border-radius: var(--border-rad);
+
+  box-shadow: 0 0 1rem var(--app-shadow-color);
+}
+
+.form-subtitle {
+  margin: 2.5rem 0;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 100%;
+  gap: 1rem;
+}
+
+.form-row input {
+  position: relative;
+  outline: none;
+  font-size: 1rem;
+  color: var(--darker-text-color);
+  background-color: var(--todo-bg);
+
+  padding: .45rem;
+
+  border: solid 2px var(--list-separation);
+}
+
+.form-row input:focus {
+  color: var(--text-color);
+}
+
+.form-row input::after {
+  content: '';
+  display: block;
+  inset: 0;
+  margin: -2px;
+  background-color: var(--check-background);
+  border-radius: inherit;
+}
+
+.login-btn {
+  margin-top: 2rem;
+  color: white;
+  padding: .45rem;
+  font-size: 1.25rem;
+  background: var(--check-background);
+  border-radius: var(--border-rad);
+}

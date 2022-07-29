@@ -76,16 +76,4 @@ document.addEventListener('alpine:init', () => {
       return this.todos.filter((todo) => todo.completed);
     },
   });
-
-  Alpine.store('darkmode', {
-    init() {
-      const theme = window.localStorage.getItem('theme');
-      if (theme === 'light') this.on = false;
-    },
-    on: true,
-    toggle() {
-      this.on = !this.on;
-      window.localStorage.setItem('theme', this.on ? 'dark' : 'light');
-    },
-  });
 });
