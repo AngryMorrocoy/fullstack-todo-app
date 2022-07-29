@@ -3,8 +3,9 @@
   --bright-blue: hsl(220, 98%, 61%);
   --check-background: linear-gradient(
     to right bottom,
-    hsl(192, 100%, 67%), hsl(280, 87%, 65%)
-    );
+    hsl(192, 100%, 67%),
+    hsl(280, 87%, 65%)
+  );
   /* ### Neutral */
   /* ### Light Theme */
   --very-light-gray: hsl(0, 0%, 98%);
@@ -46,6 +47,7 @@ body.dark {
 body {
   background-color: var(--bg-color);
   color: var(--text-color);
+  font-size: 1.125rem;
 }
 
 ul,
@@ -65,6 +67,8 @@ ol {
   place-content: center;
 }
 
+/* Todo app stuff */
+
 .todo-app {
   display: grid;
   gap: 1rem;
@@ -75,6 +79,8 @@ ol {
   background-color: var(--todo-bg);
   border-radius: var(--border-rad);
 }
+
+/* Todo list stuff */
 
 .todo-list__item {
   display: grid;
@@ -98,6 +104,30 @@ ol {
   color: var(--darker-text-color);
 }
 
+/* Create todo form stuff */
+
+.create-todo-form {
+  display: grid;
+  grid-template-columns: max-content auto;
+  align-items: center;
+  justify-items: start;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+#newTodoInput {
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--darker-text-color);
+}
+
+#newTodoInput:focus {
+  color: var(--text-color);
+}
+
+/* Checkboxes stuff */
+
 .mark-completed-todo {
   position: relative;
   -moz-appearance: none;
@@ -119,7 +149,7 @@ ol {
   content: '';
   position: absolute;
 
-  inset: .35rem;
+  inset: 0.35rem;
 
   pointer-events: none;
   background-image: var(--checked-image);

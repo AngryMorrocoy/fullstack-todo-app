@@ -14,7 +14,7 @@
 
 <div class="todo-app">
   <form
-    class=""
+    class="create-todo-form"
     @submit.prevent="createTodo({ title: todoTitle, completed }, () => {
       $dispatch('reget-todos')
       todoTitle = ''
@@ -84,12 +84,13 @@
         </li>
       </template>
     </ul>
-    <div>
-      <span>
+    <section class="todos-extra">
+      <span class="items-left">
         <span x-text="todos.filter(todo => !todo.completed).length"></span>
         items left
       </span>
       <button
+          class="delete-completed btn"
           @click="() => {
             todos.map(
               todo => todo.completed && deleteTodo(todo.id, () => undefined))
@@ -97,7 +98,7 @@
             }">
         Clear Completed
       </button>
-    </div>
+    </section>
   </div>
 
   <div
