@@ -44,6 +44,7 @@ body.dark {
   --darker-text-color: var(--dark-grayish-blue);
   --crossed-todo-color: var(--dark-grayish-blue);
   --list-separation: var(--dark-very-dark-grayish-blue-2);
+  --app-shadow-color: var(--very-dark-blue);
 }
 
 body.light {
@@ -53,6 +54,7 @@ body.light {
   --darker-text-color: var(--dark-grayish-blue);
   --crossed-todo-color: var(--light-grayish-blue-light-mode);
   --list-separation: var(--light-grayish-blue-light-mode);
+  --app-shadow-color: var(--dark-grayish-blue);
 }
 
 body {
@@ -105,6 +107,7 @@ ol {
 .todo-app > * {
   background-color: var(--todo-bg);
   border-radius: var(--border-rad);
+  box-shadow: 0 0 1rem var(--app-shadow-color);
 }
 
 /* Todo list stuff */
@@ -124,6 +127,10 @@ ol {
   justify-self: end;
   display: grid;
   place-content: center;
+}
+
+.todo-list__item > span:hover {
+  cursor: pointer;
 }
 
 .todo-list__item.completed > span {
@@ -184,6 +191,25 @@ ol {
   background-repeat: no-repeat;
 
   display: none;
+}
+
+.mark-completed-todo:hover::before {
+  display: block;
+
+  inset: 0;
+  margin: -1px;
+  border-radius: inherit;
+
+  background: var(--check-background);
+}
+
+.mark-completed-todo:hover::after {
+  content: '';
+  position: absolute;
+  border-radius: inherit;
+  inset: 0;
+  z-index: 10;
+  background-color: var(--todo-bg);
 }
 
 .mark-completed-todo:checked {
