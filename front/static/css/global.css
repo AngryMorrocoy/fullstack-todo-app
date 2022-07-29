@@ -23,6 +23,7 @@
   --dark-very-dark-grayish-blue-2: hsl(237, 14%, 26%);
   /* Sizing */
   --border-rad: 0.5rem;
+  --app-padding: 1rem 1.25rem;
 }
 
 * {
@@ -90,7 +91,7 @@ ol {
   align-items: center;
 
   border-bottom: 1px solid var(--list-separation);
-  padding: 1rem;
+  padding: var(--app-padding);
 }
 
 .todo-list__item .delete-todo {
@@ -111,7 +112,7 @@ ol {
   grid-template-columns: max-content auto;
   align-items: center;
   justify-items: start;
-  padding: 1rem;
+  padding: var(--app-padding);
   gap: 1rem;
 }
 
@@ -166,4 +167,24 @@ ol {
 
 .mark-completed-todo:checked::before {
   display: block;
+}
+
+/* Todos extra stuff */
+
+.todos-extra {
+  padding: var(--app-padding);
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  color: var(--darker-text-color);
+}
+
+.todos-extra .delete-completed {
+  color: inherit;
+  font-size: inherit;
+}
+
+.todos-extra .delete-completed:hover,
+.todos-extra .delete-completed:focus {
+  color: var(--text-color);
 }
