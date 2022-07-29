@@ -25,8 +25,7 @@
     >
 </form>
 
-<ul
-  @click="handleTodoListClick($event.target, () => $dispatch('reget-todos'))"
+<div
   x-data="{
     filter: 'all',
     todos: [],
@@ -39,22 +38,36 @@
       const filterFunc = this.filter === 'active' ?
         (todo) => !todo.completed :
         (todo) => todo.completed;
-
       return this.todos.filter(filterFunc);
     }
-  }"
-  x-init="refetchTodos()"
-  @reget-todos.window="refetchTodos()"
-  @update-filter.window="filter = $event.detail.newFilter"
-  >
-  <template x-for="todo in filterTodos()">
-    <li :id="`todo-${todo.id}`">
-      <input type="checkbox" :checked="todo.completed" class="edit-todo">
-      <span x-text="todo.title"></span>
-      <button class="delete-todo">Delete</button>
-    </li>
-  </template>
-</ul>
+  }">
+  <ul
+    @click="handleTodoListClick($event.target, () => $dispatch('reget-todos'))"
+    x-init="refetchTodos()"
+    @reget-todos.window="refetchTodos()"
+    @update-filter.window="filter = $event.detail.newFilter"
+    >
+    <template x-for="todo in filterTodos()">
+      <li :id="`todo-${todo.id}`">
+        <input type="checkbox" :checked="todo.completed" class="edit-todo">
+        <span x-text="todo.title"></span>
+        <button class="delete-todo">Delete</button>
+      </li>
+    </template>
+  </ul>
+  <div>
+    <span>
+      <span x-text="todos.filter(todo => !todo.completed).length"></span>
+      items left
+    </span>
+    <button
+      @click="todos.map(
+        todo => todo.completed && deleteTodo(todo.id, $dispatch('reget-todos'))
+      )">
+      Clear Completed
+    </button>
+  </div>
+</div>
 
 <div
   x-data="{filter: 'filter-all'}"
