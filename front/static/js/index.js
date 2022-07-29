@@ -8,7 +8,7 @@ async function getTodos() {
 function handleTodoListClick(target, onSuccess) {
   const todoID = target.parentElement.id.replace('todo-', '');
   if (target.type === 'checkbox') {
-    updateTodo(todoID, target.checked);
+    updateTodo(todoID, target.checked, onSuccess);
   } else if (target.classList.contains('delete-todo')) {
     deleteTodo(todoID, onSuccess);
   }
@@ -20,14 +20,14 @@ function deleteTodo(todoID, onSuccess) {
   axios.delete(url).then(onSuccess);
 }
 
-function updateTodo(todoID, completed) {
+function updateTodo(todoID, completed, onSuccess) {
   const url = `${basePath}/api/todos/${todoID}/`;
 
   axios
     .patch(url, {
       completed,
     })
-    .then(getTodos);
+    .then(onSuccess);
 }
 
 function createTodo(title, onSuccess) {

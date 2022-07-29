@@ -28,11 +28,26 @@
 <ul
   @click="handleTodoListClick($event.target, () => $dispatch('reget-todos'))"
   x-data="{
-    todos: []
+    filter: 'all',
+    todos: [],
+    async refetchTodos() {
+      this.todos = await getTodos()
+    },
+    filterTodos() {
+      if (this.filter === 'all') return this.todos
+
+      const filterFunc = this.filter === 'active' ?
+        (todo) => !todo.completed :
+        (todo) => todo.completed;
+
+      return this.todos.filter(filterFunc);
+    }
   }"
-  x-init="todos = await getTodos()"
-  @reget-todos.window="todos = await getTodos()" >
-  <template x-for="todo in todos">
+  x-init="refetchTodos()"
+  @reget-todos.window="refetchTodos()"
+  @update-filter.window="filter = $event.detail.newFilter"
+  >
+  <template x-for="todo in filterTodos()">
     <li :id="`todo-${todo.id}`">
       <input type="checkbox" :checked="todo.completed" class="edit-todo">
       <span x-text="todo.title"></span>
@@ -40,6 +55,46 @@
     </li>
   </template>
 </ul>
+
+<div
+  x-data="{filter: 'filter-all'}"
+  x-effect="$dispatch(
+    'update-filter',
+    {newFilter: filter.replace('filter-', '')}
+  )"
+>
+  <div>
+    <label for="filter-all">All</label>
+    <input
+      id="filter-all"
+      type="radio"
+      name="filter"
+      value="filter-all"
+      x-model="filter"
+      checked
+      >
+  </div>
+  <div>
+    <label for="filter-all">Active</label>
+    <input
+      id="filter-active"
+      type="radio"
+      name="filter"
+      value="filter-active"
+      x-model="filter"
+      >
+  </div>
+  <div>
+    <label for="filter-all">Completed</label>
+    <input
+      id="filter-completed"
+      type="radio"
+      name="filter"
+      value="filter-completed"
+      x-model="filter"
+      >
+  </div>
+</div>
 
 <button x-data="" @click="authFunc('logout')">Logout</button>
 
