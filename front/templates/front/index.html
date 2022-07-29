@@ -2,7 +2,6 @@
 {% load static %}
 {% block title %} Todo app {% endblock %}
 {% block extra_head %}
-<script src={% static "js/index.js" %}></script>
 <style>
   :root {
     --checked-image: url('{% static 'images/icon-check.svg' %}')
@@ -16,8 +15,7 @@
   <form
     class="create-todo-form"
     @submit.prevent="createTodo({ title: todoTitle, completed }, () => {
-      $dispatch('reget-todos')
-      todoTitle = ''
+      todoTitle = '';
       completed = false
     })"
     x-data="{
@@ -40,62 +38,50 @@
       >
   </form>
 
-  <div
-    x-data="{
-      filter: 'all',
-      todos: [],
-      async refetchTodos() {
-        this.todos = await getTodos()
-      },
-      filterTodos() {
-        if (this.filter === 'all') return this.todos
-
-        const filterFunc = this.filter === 'active' ?
-          (todo) => !todo.completed :
-          (todo) => todo.completed;
-        return this.todos.filter(filterFunc);
-      }
-    }">
+  <div x-data>
     <ul
       class="todo-list"
-      @click="handleTodoListClick($event.target, () => $dispatch('reget-todos'))"
-      x-init="refetchTodos()"
-      @reget-todos.window="refetchTodos()"
-      @update-filter.window="filter = $event.detail.newFilter"
+      @click="handleTodoListClick($event.target)"
       >
-      <template x-for="todo in filterTodos()">
+      <template x-for="todo in $store.todos.filterTodos">
         <li
           :class="
             `todo-list__item ${todo.completed ? 'completed' : ''}`
           "
-          :id="`todo-${todo.id}`"
         >
           <input
+            todo-method='edit'
+            :todo-id="todo.id"
             type="checkbox"
             class="edit-todo mark-completed-todo"
             :checked="todo.completed"
           >
           <span x-text="todo.title"></span>
-          <button class="delete-todo btn">
+          <button
+            todo-method='delete'
+            :todo-id="todo.id"
+            class="delete-todo btn"
+          >
             <img
+              todo-method='delete'
+              :todo-id="todo.id"
               src={% static 'images/icon-cross.svg' %}
               alt="Delete todo">
           </button>
         </li>
       </template>
     </ul>
+
     <section class="todos-extra">
       <span class="items-left">
-        <span x-text="todos.filter(todo => !todo.completed).length"></span>
+        <span x-text="$store.todos.leftTodos.length"></span>
         items left
       </span>
       <button
           class="delete-completed btn"
-          @click="() => {
-            todos.map(
-              todo => todo.completed && deleteTodo(todo.id, () => undefined))
-            $dispatch('reget-todos')
-            }">
+          @click="$store.todos.todos.forEach(
+            (todo) => todo.completed && deleteTodo({ todoID: todo.id })
+          )">
         Clear Completed
       </button>
     </section>
@@ -104,10 +90,7 @@
   <div
     class="filter-container"
     x-data="{filter: 'filter-all'}"
-    x-effect="$dispatch(
-      'update-filter',
-      {newFilter: filter.replace('filter-', '')}
-    )"
+    x-effect="$store.todos.filter = filter.replace('filter-', '')"
   >
     <div
       :class="`radio-container ${
@@ -157,4 +140,7 @@
 
 <button x-data="" @click="authFunc('logout')">Logout</button>
 
+{% endblock %}
+{% block end_script %}
+<script src={% static "js/index.js" %}></script>
 {% endblock %}

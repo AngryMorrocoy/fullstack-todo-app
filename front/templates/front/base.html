@@ -15,21 +15,10 @@
   <!-- Axios -->
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src={% static "js/auth_related.js" %}></script>
-  <script>
-    document.addEventListener('alpine:init', () => {
-      Alpine.store('darkmode', {
-        on: window.localStorage.getItem('theme') || true,
-        toggle() {
-          this.on = !this.on
-          window.localStorage.setItem('dark-theme', this.on)
-        }
-      })
-    })
-  </script>
   <!-- Styles -->
-  <link rel="stylesheet" href={% static "css/global.css" %} media="all">
   {% block extra_head %}
   {% endblock %}
+  <link rel="stylesheet" href={% static "css/global.css" %} media="all">
 </head>
 
 <body x-data :class="$store.darkmode.on ? 'dark' : 'light'">
@@ -78,6 +67,8 @@
   </header>
 
   <main class="main-container">{% block content %} {% endblock %}</main>
+  {% block end_script %}
+  {% endblock %}
 </body>
 
 </html>
