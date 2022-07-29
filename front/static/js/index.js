@@ -78,10 +78,14 @@ document.addEventListener('alpine:init', () => {
   });
 
   Alpine.store('darkmode', {
-    on: window.localStorage.getItem('theme') || true,
+    init() {
+      const theme = window.localStorage.getItem('theme');
+      if (theme === 'light') this.on = false;
+    },
+    on: true,
     toggle() {
       this.on = !this.on;
-      window.localStorage.setItem('dark-theme', this.on);
+      window.localStorage.setItem('theme', this.on ? 'dark' : 'light');
     },
   });
 });
