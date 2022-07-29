@@ -188,3 +188,37 @@ ol {
 .todos-extra .delete-completed:focus {
   color: var(--text-color);
 }
+
+/* Todos filter stuff */
+
+.filter-container {
+  padding: var(--app-padding);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.25rem;
+  font-weight: bold;
+  font-size: 0.75rem;
+
+  color: var(--darker-text-color);
+}
+
+.radio-container > *,
+.radio-container {
+  cursor: pointer;
+}
+
+.radio-container:hover,
+.radio-container:focus-within {
+  color: var(--text-color);
+}
+
+.filter-radio {
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+
+.radio-container.selected {
+  color: var(--bright-blue);
+}

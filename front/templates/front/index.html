@@ -102,15 +102,19 @@
   </div>
 
   <div
+    class="filter-container"
     x-data="{filter: 'filter-all'}"
     x-effect="$dispatch(
       'update-filter',
       {newFilter: filter.replace('filter-', '')}
     )"
   >
-    <div>
-      <label for="filter-all">All</label>
+    <div
+      :class="`radio-container ${
+        $el.childNodes[1].id === filter ? 'selected':''
+      }`">
       <input
+        class="filter-radio"
         id="filter-all"
         type="radio"
         name="filter"
@@ -118,26 +122,35 @@
         x-model="filter"
         checked
         >
+      <label for="filter-all">All</label>
     </div>
-    <div>
-      <label for="filter-all">Active</label>
+    <div
+      :class="`radio-container ${
+        $el.childNodes[1].id === filter ? 'selected':''
+      }`">
       <input
+        class="filter-radio"
         id="filter-active"
         type="radio"
         name="filter"
         value="filter-active"
         x-model="filter"
         >
+      <label for="filter-active">Active</label>
     </div>
-    <div>
-      <label for="filter-all">Completed</label>
+    <div
+      :class="`radio-container ${
+        $el.childNodes[1].id === filter ? 'selected':''
+      }`">
       <input
+        class="filter-radio"
         id="filter-completed"
         type="radio"
         name="filter"
         value="filter-completed"
         x-model="filter"
         >
+      <label for="filter-completed">Completed</label>
     </div>
   </div>
 </div>
