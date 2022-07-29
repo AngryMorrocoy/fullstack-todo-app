@@ -1,41 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        {% load static %}
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>{% block title %} {% endblock %}</title>
-        <!-- Google fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap"
-            rel="stylesheet"
-        />
-        <!-- Alpine c: -->
-        <script
-            defer
-            src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
-        ></script>
-        <!-- Axios -->
-        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-        <script src={% static "js/auth_related.js" %}></script>
-        <script>
-          document.addEventListener('alpine:init', () => {
-            Alpine.store('darkmode', {
-              on: true,
-              toggle() {
-                this.on = !this.on
-              }
-            })
-          })
-        </script>
-        <!-- Styles -->
-        <link rel="stylesheet" href={% static "css/global.css" %} media="all">
-        {% block extra_head %}
-        {% endblock %}
-    </head>
-    <body x-data :class="$store.darkmode.on ? 'dark' : 'light'">
-        <main class="main-container">{% block content %} {% endblock %}</main>
-    </body>
+
+<head>
+  {% load static %}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %} {% endblock %}</title>
+  <!-- Google fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet" />
+  <!-- Alpine c: -->
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <!-- Axios -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src={% static "js/auth_related.js" %}></script>
+  <script>
+    document.addEventListener('alpine:init', () => {
+      Alpine.store('darkmode', {
+        on: window.localStorage.getItem('theme') || true,
+        toggle() {
+          this.on = !this.on
+          window.localStorage.setItem('dark-theme', this.on)
+        }
+      })
+    })
+  </script>
+  <!-- Styles -->
+  <link rel="stylesheet" href={% static "css/global.css" %} media="all">
+  {% block extra_head %}
+  {% endblock %}
+</head>
+
+<body x-data :class="$store.darkmode.on ? 'dark' : 'light'">
+
+  <template x-data x-if="$store.darkmode.on">
+    <picture>
+      <source
+        media="(min-width: 700px)"
+        srcset={% static "images/bg-desktop-dark.jpg" %}
+      />
+      <img
+        class="body-background-image"
+        src={% static "images/bg-mobile-dark.jpg" %}
+        alt="">
+    </picture>
+  </template>
+
+  <template x-data x-if="!$store.darkmode.on">
+    <picture>
+      <source
+        media="(min-width: 700px)"
+        srcset={% static "images/bg-desktop-light.jpg" %}
+      />
+      <img
+        class="body-background-image"
+        src={% static "images/bg-mobile-light.jpg" %}
+        alt="">
+    </picture>
+  </template>
+
+
+  <header class="main-header">
+    <h1>Todo</h1>
+    <button
+      x-data
+      class="btn theme-switch"
+      @click="$store.darkmode.toggle()"
+    >
+      <template x-if="$store.darkmode.on">
+        <img src={% static "images/icon-sun.svg" %} alt="">
+      </template>
+      <template x-if="!$store.darkmode.on">
+        <img src={% static "images/icon-moon.svg" %} alt="">
+      </template>
+    </button>
+  </header>
+
+  <main class="main-container">{% block content %} {% endblock %}</main>
+</body>
+
 </html>

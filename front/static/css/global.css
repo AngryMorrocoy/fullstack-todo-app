@@ -42,13 +42,26 @@ body.dark {
   --todo-bg: var(--very-dark-desaturated-blue);
   --text-color: var(--light-grayish-blue);
   --darker-text-color: var(--dark-grayish-blue);
+  --crossed-todo-color: var(--dark-grayish-blue);
   --list-separation: var(--dark-very-dark-grayish-blue-2);
+}
+
+body.light {
+  --bg-color: var(--very-light-gray);
+  --todo-bg: white;
+  --text-color: var(--light-very-dark-grayish-blue);
+  --darker-text-color: var(--dark-grayish-blue);
+  --crossed-todo-color: var(--light-grayish-blue-light-mode);
+  --list-separation: var(--light-grayish-blue-light-mode);
 }
 
 body {
   background-color: var(--bg-color);
   color: var(--text-color);
   font-size: 1.125rem;
+
+  display: grid;
+  place-content: center;
 }
 
 ul,
@@ -62,10 +75,23 @@ ol {
   cursor: pointer;
 }
 
-.main-container {
-  min-height: 100vh;
-  display: grid;
-  place-content: center;
+.body-background-image {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+}
+
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2.5rem 0;
+}
+
+.main-header h1 {
+  color: white;
+  text-transform: uppercase;
 }
 
 /* Todo app stuff */
@@ -102,7 +128,7 @@ ol {
 
 .todo-list__item.completed > span {
   text-decoration: line-through;
-  color: var(--darker-text-color);
+  color: var(--crossed-todo-color);
 }
 
 /* Create todo form stuff */
