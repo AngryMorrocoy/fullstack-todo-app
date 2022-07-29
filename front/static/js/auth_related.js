@@ -1,16 +1,22 @@
 const basePath = window.location.origin;
 
+const localStorageUtils = {
+  login: (resData) => {
+    window.localStorage.setItem('currentUserID', resData.user.pk);
+  },
+  logout: () => window.localStorage.removeItem('currentUserID'),
+};
+
 // The type must be login or logout
 function authFunc(method, username, password) {
   const url = `${basePath}/auth/${method}/`;
-  console.log(url)
   axios
     .post(url, {
       username,
       password,
     })
     .then((res) => {
-      // console.log(res);
+      localStorageUtils[method](res.data);
       document.location.reload();
     })
     .catch((err) => {

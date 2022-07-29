@@ -2,34 +2,37 @@ async function getTodos() {
   const url = `${basePath}/api/todos/`;
   const response = await axios.get(url);
 
-  console.log(response);
-
   return response.data;
 }
 
-function handleTodoListClick(target) {
+function handleTodoListClick(target, onSuccess) {
   const todoID = target.parentElement.id.replace('todo-', '');
   if (target.type === 'checkbox') {
     updateTodo(todoID, target.checked);
   } else if (target.classList.contains('delete-todo')) {
-    deleteTodo(todoID);
+    deleteTodo(todoID, onSuccess);
   }
 }
 
-function deleteTodo(todoID) {
+function deleteTodo(todoID, onSuccess) {
   const url = `${basePath}/api/todos/${todoID}/`;
 
-  axios
-    .delete(url)
-    .then(() => document.querySelector(`#todo-${todoID}`).remove());
+  axios.delete(url).then(onSuccess);
 }
 
-function updateTodo(todoID, newCompleted) {
+function updateTodo(todoID, completed) {
   const url = `${basePath}/api/todos/${todoID}/`;
 
   axios
     .patch(url, {
-      completed: newCompleted,
+      completed,
     })
-    .then();
+    .then(getTodos);
+}
+
+function createTodo(title, onSuccess) {
+  const url = `${basePath}/api/todos/`;
+  const owner = window.localStorage.getItem('currentUserID');
+
+  axios.post(url, { title, owner }).then(onSuccess).catch(console.log);
 }

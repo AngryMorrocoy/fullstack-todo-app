@@ -7,10 +7,31 @@
 
 {% block content %}
 
+<form
+    @submit.prevent="createTodo(todoTitle, () => {
+      $dispatch('reget-todos')
+      todoTitle = ''
+    })"
+  x-data="{
+    todoTitle: ''
+  }">
+  <input
+    x-model="todoTitle"
+    id="newTodoInput"
+    type="text"
+    name="todoTitle"
+    placeholder="Create a new todo..."
+    required
+    >
+</form>
+
 <ul
-  @click="handleTodoListClick($event.target)"
-  x-data="{todos: []}"
-  x-init="todos = await getTodos()">
+  @click="handleTodoListClick($event.target, () => $dispatch('reget-todos'))"
+  x-data="{
+    todos: []
+  }"
+  x-init="todos = await getTodos()"
+  @reget-todos.window="todos = await getTodos()" >
   <template x-for="todo in todos">
     <li :id="`todo-${todo.id}`">
       <input type="checkbox" :checked="todo.completed" class="edit-todo">
