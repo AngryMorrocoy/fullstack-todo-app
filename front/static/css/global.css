@@ -98,7 +98,7 @@ ol {
   color: var(--darker-text-color);
 }
 
-.todo-list__item .edit-todo {
+.mark-completed-todo {
   position: relative;
   -moz-appearance: none;
   -webkit-appearance: none;
@@ -115,7 +115,7 @@ ol {
   border: 1px solid var(--list-separation);
 }
 
-.todo-list__item .edit-todo::before {
+.mark-completed-todo::before {
   content: '';
   position: absolute;
 
@@ -129,11 +129,11 @@ ol {
   display: none;
 }
 
-.todo-list__item .edit-todo:checked {
+.mark-completed-todo:checked {
   background: var(--check-background);
   border: none;
 }
 
-.todo-list__item .edit-todo:checked::before {
+.mark-completed-todo:checked::before {
   display: block;
 }

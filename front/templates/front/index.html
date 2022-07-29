@@ -14,13 +14,22 @@
 
 <div class="todo-app">
   <form
-    @submit.prevent="createTodo(todoTitle, () => {
+    class=""
+    @submit.prevent="createTodo({ title: todoTitle, completed }, () => {
       $dispatch('reget-todos')
       todoTitle = ''
+      completed = false
     })"
     x-data="{
-      todoTitle: ''
+      todoTitle: '',
+      completed: false
     }">
+    <input
+      x-model="completed"
+      class="mark-completed-todo"
+      id="newTodoCheckbox"
+      type="checkbox"
+      name="completed">
     <input
       x-model="todoTitle"
       id="newTodoInput"
@@ -63,7 +72,7 @@
         >
           <input
             type="checkbox"
-            class="edit-todo"
+            class="edit-todo mark-completed-todo"
             :checked="todo.completed"
           >
           <span x-text="todo.title"></span>
@@ -81,9 +90,11 @@
         items left
       </span>
       <button
-        @click="todos.map(
-          todo => todo.completed && deleteTodo(todo.id, $dispatch('reget-todos'))
-        )">
+          @click="() => {
+            todos.map(
+              todo => todo.completed && deleteTodo(todo.id, () => undefined))
+            $dispatch('reget-todos')
+            }">
         Clear Completed
       </button>
     </div>

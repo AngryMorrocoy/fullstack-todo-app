@@ -33,9 +33,12 @@ function updateTodo(todoID, completed, onSuccess) {
     .then(onSuccess);
 }
 
-function createTodo(title, onSuccess) {
+function createTodo({ title, completed }, onSuccess) {
   const url = `${basePath}/api/todos/`;
   const owner = window.localStorage.getItem('currentUserID');
 
-  axios.post(url, { title, owner }).then(onSuccess).catch(console.log);
+  axios
+    .post(url, { title, completed, owner })
+    .then(onSuccess)
+    .catch(console.log);
 }
