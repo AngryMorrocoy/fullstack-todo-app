@@ -6,6 +6,9 @@ async function getTodos() {
 }
 
 function handleTodoListClick(target, onSuccess) {
+  if (target.parentElement.classList.contains('delete-todo'))
+    target = target.parentElement;
+
   const todoID = target.parentElement.id.replace('todo-', '');
   if (target.type === 'checkbox') {
     updateTodo(todoID, target.checked, onSuccess);
