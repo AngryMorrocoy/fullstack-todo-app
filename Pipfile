@@ -12,6 +12,7 @@ django-allauth = "*"
 djangorestframework-simplejwt = "*"
 whitenoise = "*"
 gunicorn = "*"
+dj-database-url = "*"
 
 [dev-packages]
 
