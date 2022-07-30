@@ -349,3 +349,12 @@ a {
 .link:focus {
   text-decoration: underline;
 }
+
+.btn.logout {
+  border-radius: var(--border-rad);
+  background: var(--check-background);
+  padding: .7rem;
+  color: white;
+  width: 100%;
+  margin-top: 1rem;
+}

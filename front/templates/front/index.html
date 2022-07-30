@@ -138,7 +138,10 @@
   </div>
 </div>
 
-<button x-data @click="authFunc('logout')">Logout</button>
+<button
+  class="btn logout"
+  x-data @click="authFunc('logout')"
+>Logout</button>
 
 {% endblock %}
 {% block end_script %}
