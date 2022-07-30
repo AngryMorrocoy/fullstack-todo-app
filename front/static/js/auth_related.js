@@ -23,3 +23,15 @@ function authFunc(method, username, password) {
       console.log(err);
     });
 }
+
+function registerUser({ username, password1, password2 }, onSuccess, onError) {
+  const url = `${basePath}/auth/registration/`;
+  axios
+    .post(url, {
+      username,
+      password1,
+      password2,
+    })
+    .then(onSuccess)
+    .catch(onError);
+}

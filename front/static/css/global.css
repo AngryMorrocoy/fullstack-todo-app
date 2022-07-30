@@ -283,7 +283,7 @@ ol {
   gap: 1rem;
   min-width: 20rem;
   background-color: var(--todo-bg);
-  padding: 0 2rem 5rem 2rem;
+  padding: 0 2rem 2rem 2rem;
   border-radius: var(--border-rad);
 
   box-shadow: 0 0 1rem var(--app-shadow-color);
@@ -309,19 +309,20 @@ ol {
   padding: .45rem;
 
   border: solid 2px var(--list-separation);
+  border-radius: var(--border-rad);
 }
 
 .form-row input:focus {
   color: var(--text-color);
 }
 
-.form-row input::after {
-  content: '';
-  display: block;
-  inset: 0;
-  margin: -2px;
-  background-color: var(--check-background);
-  border-radius: inherit;
+.form-row.invalid input {
+  border-color: red;
+}
+
+.form-error {
+  font-size: .8rem;
+  text-decoration: underline;
 }
 
 .login-btn {

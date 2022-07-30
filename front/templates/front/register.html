@@ -1,0 +1,78 @@
+
+{% extends "front/base.html" %}
+{% load static %}
+{% block title %} Todo app {% endblock %}
+{% block extra_head %}
+{% endblock %}
+
+{% block content %}
+<form
+  x-data="{
+    username: '',
+    password1: '',
+    password2: '',
+    invalidFields: {},
+    get passwordsAreEqual() {
+      return this.password1 &&
+        this.password2 &&
+        this.password1 !== this.password2
+    }
+  }"
+  @submit.prevent="registerUser($data, (res) => {
+    localStorageUtils.login(res.data)
+    invalidFields = {}
+    username = ''
+    password1 = ''
+    password2 = ''
+    document.location.reload();
+    }, (err) => {
+      const data = err.response.data
+      if ('username' in data) {
+        invalidFields.username = data.username[0]
+      }
+    })"
+  class="auth-form"
+>
+  <h2 class="form-subtitle">Register</h2>
+  <div class="form-row">
+    <label for="username">Username</label>
+    <input
+      required
+      maxlenght="50"
+      x-model="username"
+      id="username" name="username" type="text">
+    <template
+      x-if="'username' in invalidFields"
+    >
+    <span class="form-error"
+      x-text="invalidFields.username"
+    ></span>
+    </template>
+  </div>
+  <div class="form-row">
+    <label for="password1">Password</label>
+    <input
+      required
+      x-model="password1"
+      minlength="8"
+      id="password1" name="password2" type="password">
+  </div>
+  <div class="form-row">
+    <label for="password2">Confirm password</label>
+    <input
+      required
+      x-model="password2"
+      minlength="8"
+      id="password2" name="password2" type="password">
+    <template
+      x-if="passwordsAreEqual"
+    >
+      <span class="form-error">Passwords don't match</span>
+    </template>
+  </div>
+  <input
+    class="btn login-btn"
+    type="submit"
+    value="Register">
+</form>
+{% endblock %}
