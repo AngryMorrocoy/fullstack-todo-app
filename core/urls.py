@@ -1,4 +1,6 @@
 from django.urls import include, path
+import dj_rest_auth.registration.urls
+import dj_rest_auth.urls
 
 urlpatterns = [
     path("api/", include("todos.urls")),

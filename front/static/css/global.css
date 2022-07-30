@@ -71,6 +71,11 @@ ol {
   list-style: none;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 .btn {
   background: none;
   border: none;
@@ -89,6 +94,7 @@ ol {
   justify-content: space-between;
   align-items: center;
   margin: 2.5rem 0;
+  color: white;
 }
 
 .main-header h1 {
@@ -306,7 +312,7 @@ ol {
   color: var(--darker-text-color);
   background-color: var(--todo-bg);
 
-  padding: .45rem;
+  padding: 0.45rem;
 
   border: solid 2px var(--list-separation);
   border-radius: var(--border-rad);
@@ -321,15 +327,25 @@ ol {
 }
 
 .form-error {
-  font-size: .8rem;
+  font-size: 0.8rem;
   text-decoration: underline;
 }
 
 .login-btn {
   margin-top: 2rem;
   color: white;
-  padding: .45rem;
+  padding: 0.45rem;
   font-size: 1.25rem;
   background: var(--check-background);
   border-radius: var(--border-rad);
+}
+
+.link {
+  font-size: .9rem;
+  color: var(--text-color)
+}
+
+.link:hover,
+.link:focus {
+  text-decoration: underline;
 }
