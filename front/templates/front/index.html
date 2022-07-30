@@ -77,6 +77,55 @@
         <span x-text="$store.todos.leftTodos.length"></span>
         items left
       </span>
+      <div
+        class="filter-container"
+        x-data="{filter: 'filter-all'}"
+        x-effect="$store.todos.filter = filter.replace('filter-', '')"
+      >
+        <div
+          :class="`radio-container ${
+            $el.childNodes[1].id === filter ? 'selected':''
+          }`">
+          <input
+            class="filter-radio"
+            id="filter-all"
+            type="radio"
+            name="filter"
+            value="filter-all"
+            x-model="filter"
+            checked
+            >
+          <label for="filter-all">All</label>
+        </div>
+        <div
+          :class="`radio-container ${
+            $el.childNodes[1].id === filter ? 'selected':''
+          }`">
+          <input
+            class="filter-radio"
+            id="filter-active"
+            type="radio"
+            name="filter"
+            value="filter-active"
+            x-model="filter"
+            >
+          <label for="filter-active">Active</label>
+        </div>
+        <div
+          :class="`radio-container ${
+            $el.childNodes[1].id === filter ? 'selected':''
+          }`">
+          <input
+            class="filter-radio"
+            id="filter-completed"
+            type="radio"
+            name="filter"
+            value="filter-completed"
+            x-model="filter"
+            >
+          <label for="filter-completed">Completed</label>
+        </div>
+      </div>
       <button
           class="delete-completed btn"
           @click="$store.todos.todos.forEach(
@@ -87,55 +136,6 @@
     </section>
   </div>
 
-  <div
-    class="filter-container"
-    x-data="{filter: 'filter-all'}"
-    x-effect="$store.todos.filter = filter.replace('filter-', '')"
-  >
-    <div
-      :class="`radio-container ${
-        $el.childNodes[1].id === filter ? 'selected':''
-      }`">
-      <input
-        class="filter-radio"
-        id="filter-all"
-        type="radio"
-        name="filter"
-        value="filter-all"
-        x-model="filter"
-        checked
-        >
-      <label for="filter-all">All</label>
-    </div>
-    <div
-      :class="`radio-container ${
-        $el.childNodes[1].id === filter ? 'selected':''
-      }`">
-      <input
-        class="filter-radio"
-        id="filter-active"
-        type="radio"
-        name="filter"
-        value="filter-active"
-        x-model="filter"
-        >
-      <label for="filter-active">Active</label>
-    </div>
-    <div
-      :class="`radio-container ${
-        $el.childNodes[1].id === filter ? 'selected':''
-      }`">
-      <input
-        class="filter-radio"
-        id="filter-completed"
-        type="radio"
-        name="filter"
-        value="filter-completed"
-        x-model="filter"
-        >
-      <label for="filter-completed">Completed</label>
-    </div>
-  </div>
 </div>
 
 <button
