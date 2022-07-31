@@ -8,7 +8,7 @@ const localStorageUtils = {
 };
 
 // The type must be login or logout
-function authFunc(method, username, password) {
+function authFunc(method, username, password, onFailure) {
   const url = `${basePath}/auth/${method}/`;
   axios
     .post(url, {
@@ -19,9 +19,7 @@ function authFunc(method, username, password) {
       localStorageUtils[method](res.data);
       document.location.reload();
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch(onFailure);
 }
 
 function registerUser({ username, password1, password2 }, onSuccess, onError) {

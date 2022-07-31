@@ -15,41 +15,28 @@ Login
 
 {% block content %}
 <form
-    class="auth-form"
-    @submit.prevent="authFunc('login', username, password)"
-    x-data="{
-      username: '',
-      password: ''
-    }"
-  >
+  class="auth-form"
+  @submit.prevent="authFunc('login', username, password,
+    (err) => {
+      failMessage = err.response.data.non_field_errors[0];
+    })"
+  x-data="{
+    username: '',
+    password: '',
+    failMessage: ''
+  }"
+>
   <h2 class="form-subtitle">Login</h2>
+  <span class="form-error" x-text="failMessage"></span>
   <div class="form-row">
     <label for="username">Username</label>
-    <input id="username"
-      x-model="username"
-      type="text"
-      name="username"
-      placeholder="Username..."
-      required
-    >
+    <input id="username" x-model="username" type="text" name="username" placeholder="Username..." required>
   </div>
   <div class="form-row">
     <label for="password">Password</label>
-    <input
-        id="password"
-        x-model="password"
-        type="password"
-        name="password"
-        placeholder="Password..."
-        required
-      >
+    <input id="password" x-model="password" type="password" name="password" placeholder="Password..." required>
   </div>
-  <input
-    class="btn login-btn"
-    type="submit"
-    value="Login">
-  <a
-    class="btn link"
-    href={% url 'register' %}>Register</a>
+  <input class="btn login-btn" type="submit" value="Login">
+  <a class="btn link" href={% url 'register' %}>Register</a>
 </form>
 {% endblock %}
