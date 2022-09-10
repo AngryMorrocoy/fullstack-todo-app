@@ -18,7 +18,7 @@ import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-IS_HEROKU = "DYNO" in os.environ
+IN_PRODUCTION = "RAILWAY_STATIC_URL" in os.environ
 
 SECRET_KEY = "CHANGE ME PLEASEEEEEeee"
 
@@ -26,11 +26,11 @@ if "SECRET_KEY" in os.environ:
     SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # Disable debug if running in heroku
-DEBUG = False if IS_HEROKU else True
+DEBUG = False if IN_PRODUCTION else True
 
 ALLOWED_HOSTS = []
-if IS_HEROKU:
-    ALLOWED_HOSTS = ["*"]
+if IN_PRODUCTION:
+    ALLOWED_HOSTS = ["*", os.environ.get("RAILWAY_STATIC_URL")]
 
 
 # Application definition
